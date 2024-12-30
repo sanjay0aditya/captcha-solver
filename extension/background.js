@@ -12,8 +12,8 @@ if (info.menuItemId === "sendImageToServer") {
     chrome.windows.create({
     url: 'popup.html',
     type: 'popup',
-    width: 500,
-    height: 400
+    width: 415,
+    height: 260
     });
 
     chrome.scripting.executeScript({
