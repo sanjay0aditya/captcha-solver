@@ -1,5 +1,6 @@
-/server/venv/
-/model/venv/
+/*/venv
 .ipynb_checkpoints
 __pycache__
 /model/datasets/
+.png
+/scraper

@@ -1,34 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      width: 300px;
-      padding: 15px;
+      width: 400px;
+      padding: 16px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
     }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    #status {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: #475569;
+    }
+
     .loader {
-      border: 3px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 3px solid #3498db;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+
+    .skeleton {
+      background: linear-gradient(
+        90deg,
+        #f1f5f9 0%,
+        #e2e8f0 50%,
+        #f1f5f9 100%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 6px;
+      height: 20px;
     }
+
+    .skeleton:nth-child(2) {
+      width: 80%;
+    }
+
+    .skeleton:nth-child(3) {
+      width: 60%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
     #response {
-      margin-top: 10px;
-      word-break: break-all;
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .success {
+      color: #059669;
+    }
+
+    .error {
+      color: #dc2626;
     }
   </style>
 </head>
 <body>
-  <div id="status">Waiting for image...</div>
-  <div id="loader" class="loader" style="display: block;"></div>
-  <div id="response"></div>
+  <div class="container">
+    <div id="status">Waiting for image...</div>
+    <div id="loader" class="loader">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+    <div id="response"></div>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
