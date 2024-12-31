@@ -2,5 +2,5 @@
 .ipynb_checkpoints
 __pycache__
 /model/datasets/
-.png
+*.png
 /scraper
