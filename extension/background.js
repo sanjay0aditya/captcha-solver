@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "sendImageToServer",
-    title: "Autofill Captcha",
+    title: "Process Captcha",
     contexts: ["image"]
   });
 });
@@ -52,19 +52,28 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         .then(data => {
           console.log("Image sent successfully:", data);
           
+          // Copy captcha text to clipboard
+          chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            func: (captchaText) => {
+              navigator.clipboard.writeText(captchaText)
+                .then(() => console.log('Captcha copied to clipboard'))
+                .catch(err => console.error('Failed to copy:', err));
+            },
+            args: [data.captcha]
+          });
+
           // Find and fill the next input field
           chrome.tabs.sendMessage(tab.id, { 
             action: "fillCaptcha",
             captchaText: data.captcha 
           }, (response) => {
-            // Update notification with success result
+            // Update notification with processed captcha result
             chrome.notifications.create('captchaSolver', {
               type: 'basic',
               iconUrl: 'extension.png',
-              title: 'Captcha Solved',
-              message: response.success 
-                ? `Captcha solved: ${data.captcha}\nAutofilled successfully!`
-                : `Captcha solved: ${data.captcha}\nCouldn't find input field to autofill`,
+              title: 'Captcha Processed',
+              message: `Processed captcha: ${data.captcha}\nCopied to clipboard!`,
               priority: 2
             });
 
