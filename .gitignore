@@ -4,3 +4,4 @@ __pycache__
 /model/datasets/
 *.png
 /scraper
+/server/uploaded_images
