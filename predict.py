@@ -41,7 +41,7 @@ def predict_single_image(image_path, model_path, transform, idx_to_char):
         log_probs = model(image)
         pred_text = decode_predictions(log_probs, idx_to_char)[0]
 
-    return pred_text
+
 
 if __name__ == "__main__":
     # Test code here if needed
